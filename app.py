@@ -75,7 +75,12 @@ def save_qualifying_loans(qualifying_loans):
         export_path = Path(export_path)
         
         file_name_input = questionary.text("What would you like your file to be called (please include .csv)?").ask()
-        file_name = file_name_input
+        
+        if file_name_input[-4:].lower() == '.csv':
+            file_name = file_name_input
+        else:
+            file_name = file_name_input + '.csv'
+            
         complete_name = os.path.join(export_path,file_name)
         if not export_path.exists():
             sys.exit(f"Oops! Can't find this path: {export_path}")
