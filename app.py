@@ -69,6 +69,7 @@ def find_qualifying_loans(bank_data, credit_score, debt, income, loan, home_valu
 
 
 def save_qualifying_loans(qualifying_loans):
+    
     confirmation = questionary.confirm('Would you like to export your qualifying loans to a CSV?').ask()
     if confirmation == True:
         export_path = questionary.text("Enter filepath location for your loans:").ask()
@@ -82,8 +83,10 @@ def save_qualifying_loans(qualifying_loans):
             file_name = file_name_input + '.csv'
             
         complete_name = os.path.join(export_path,file_name)
+        
         if not export_path.exists():
             sys.exit(f"Oops! Can't find this path: {export_path}")
+            
         with open(complete_name, 'w', newline='') as csvfile:
             writer = csv.writer(csvfile)
             writer.writerows(qualifying_loans)
